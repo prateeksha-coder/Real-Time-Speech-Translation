@@ -1,4 +1,4 @@
-
+# py -3.10 -m pip install gTTS pygame speechrecognition googletrans==4.0.0-rc1 pyaudio
 import speech_recognition as sr
 import pyttsx3
 from googletrans import Translator  # Google Translate API
