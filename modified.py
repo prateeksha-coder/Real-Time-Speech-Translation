@@ -1,45 +1,32 @@
+
 import speech_recognition as sr
-
 import pyttsx3
-
 from googletrans import Translator  # Google Translate API
-
-
+from gtts import gTTS
+import pygame
+import os
+import time
 
 # Initialize text-to-speech engine
+def speak(text, language="hi"):
+    try:
+        filename = "translated_voice.mp3"
+        tts = gTTS(text=text, lang=language)
+        tts.save(filename)
 
-def speak(text, language="en"):
+        pygame.mixer.init()
+        pygame.mixer.music.load(filename)
+        pygame.mixer.music.play()
 
-    engine = pyttsx3.init()
+        # Wait until playback finishes
+        while pygame.mixer.music.get_busy():
+            time.sleep(0.1)
 
-    engine.setProperty('rate', 150)  # Speed of speech
+        pygame.mixer.quit()
+        os.remove(filename)
 
-    voices = engine.getProperty('voices')
-
-    
-
-    # Set voice for English or other language if supported by pyttsx3
-
-    '''if language == "en":
-
-        engine.setProperty('voice', voices[0].id)  # Default English voice
-
-    else:
-
-        engine.setProperty('voice', voices[1].id)  # Fallback to another voice if available'''
-    print("Available voices:")
-    for index, voice in enumerate(voices):
-        print(index, voice.name, voice.languages)
-
-    # Just use first voice for now
-    engine.setProperty('voice', voices[0].id)
-
-    
-
-    engine.say(text)
-
-    engine.runAndWait()
-
+    except Exception as e:
+        print("Error in speaking:", e)
 
 
 # Speech-to-Text: Recognize spoken language (English)
