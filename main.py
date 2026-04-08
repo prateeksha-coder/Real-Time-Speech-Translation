@@ -2,7 +2,7 @@ import speech_recognition as sr
 
 import pyttsx3
 
-from googletrans import Translator  # Google Translate API
+from deep_translator import GoogleTranslator  # Google Translate API
 
 
 
@@ -80,15 +80,10 @@ def speech_to_text():
 
 # Translate text using Google Translate API
 
-def translate_text(text, target_language="es"):  # Default target language is Spanish (es)
-
-    translator = Translator()
-
-    translation = translator.translate(text, dest=target_language)
-
-    print(f"???? Translated text: {translation.text}")
-
-    return translation.text
+def translate_text(text, target_language="hi"):
+    translation = GoogleTranslator(source='auto', target=target_language).translate(text)
+    print(f"Translated text: {translation}")
+    return translation
 
 
 
